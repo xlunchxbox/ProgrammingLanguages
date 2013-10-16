@@ -1,0 +1,93 @@
+require 'open-uri'
+require 'nokogiri'
+require 'benchmark'
+
+def read_file	
+	IO.read(File.dirname(__FILE__) + "/cities.txt")
+end
+
+def fetch_xml(id)
+	open("http://weather.yahooapis.com/forecastrss?w=#{id.chomp}&u=f")
+end
+	
+def parse_xml(raw_xml, weather)
+	source = Nokogiri::XML(raw_xml)
+	location = source.xpath("//yweather:location")
+	condition = source.xpath("//item//yweather:condition")
+	forecast = source.xpath("//item//yweather:forecast")
+	weather[[location[0]['region'], location[0]['city']]] = [condition[0]['temp'], condition[0]['text'], forecast[0]['high'], forecast[0]['low']]
+end
+
+def fetch_weather(city_list)
+	weather = Hash.new
+	city_list.each do |id|
+		parse_xml(fetch_xml(id), weather)
+	end
+	weather
+end
+
+def multithread_fetch_weather(city_list)
+	weather = Hash.new
+	mutex = Mutex.new
+	thread_list = []
+	city_list.each_with_index do |id, index|
+		thread_list[index] = Thread.new {
+			raw_xml = fetch_xml(id)
+			mutex.synchronize do
+				parse_xml(raw_xml, weather)
+			end
+		}
+	end
+	thread_list.each { |t| t.join }
+	weather
+end
+
+def display_result(weather, max_city, min_city)	
+	puts "State \t City \t\t High \t Low \t Current Condition"
+	weather.each do |k, v|
+	  print("#{k[0]} \t #{k[1]} \t #{v[2]} \t #{v[3]} \t #{v[0]} \t #{v[1]}\n")
+	end
+	puts "The city with the highest temperature:"
+	print("#{max_city[0][0]} \t #{max_city[0][1]} \t #{max_city[1][2]} \t #{max_city[1][3]} \t #{max_city[1][0]}  \t #{max_city[1][1]}\n")
+	puts "The city with the lowest temperature:"
+	print("#{min_city[0][0]} \t #{min_city[0][1]} \t #{min_city[1][2]} \t #{min_city[1][3]} \t #{min_city[1][0]} \t #{min_city[1][1]}\n")
+end
+
+<<<<<<< .mine
+
+
+list = read_file
+puts "\nSingle Thread"
+puts "\nTotal time is: " + (Benchmark.realtime{ display_result(parse_xml(method(:nokogiri_xml), list)) }).to_s()
+=======
+city_list = read_file.split(",")
+weather = Hash.new
+max_city = Hash.new
+min_city = Hash.new
+print("\nSingle thread:\n")
+total_time = Benchmark.realtime{
+	weather = fetch_weather(city_list).sort
+	max_city = weather.max_by{|k,v| v}
+	min_city = weather.min_by{|k,v| v}
+}
+print("Total time is #{total_time}\n\n")
+display_result(weather, max_city, min_city)
+>>>>>>> .r1446
+
+print("\nMultithread:\n")
+total_time = Benchmark.realtime{
+	weather = multithread_fetch_weather(city_list).sort
+	max_city = weather.max_by{|k,v| v}
+	min_city = weather.min_by{|k,v| v}
+}
+print("Total time is #{total_time}\n\n")
+display_result(weather, max_city, min_city)
+
+print("\nSort, Max, and Min:\n")
+weather = multithread_fetch_weather(city_list)
+total_time = Benchmark.realtime{
+	weather = weather.sort
+	max_city = weather.max_by{|k,v| v}
+	min_city = weather.min_by{|k,v| v}
+}
+print("Total time of sort, max and min is #{total_time}\n\n")

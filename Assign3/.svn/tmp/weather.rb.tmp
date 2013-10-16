@@ -1,0 +1,87 @@
+require 'open-uri'
+require 'xmlsimple'
+require 'nokogiri'
+require 'benchmark'
+
+def read_file	
+	id_list = Array.new
+	File.open(File.dirname(__FILE__) + "/cities.txt", "r").each do |line|		
+		id_list.push(line)
+	end
+	id_list
+end
+
+def fetch_xml(id)
+	open("http://weather.yahooapis.com/forecastrss?w=#{id.chomp}&u=f")
+end
+	
+def parse_xml(parser, list)
+	weather = Hash.new
+	#total = 0
+	list.each do |id|
+		raw_xml = fetch_xml(id)
+		#total += Benchmark.realtime{parser.call(raw_xml, weather)}
+		parser.call(raw_xml, weather)
+	end
+	#print("Total time: #{total}\n")
+	weather
+end
+	
+def simple_xml(raw_xml, weather)	
+	source = XmlSimple.xml_in(raw_xml)
+	content = source['channel'][0]
+	location = content['location'][0]
+	condition = content['item'][0]['condition'][0]
+	forecast = content['item'][0]['forecast'][0]
+	weather[[location['region'], location['city']]] = [condition['temp'], condition['text'], forecast['high'], forecast['low']]
+end
+
+def nokogiri_xml(raw_xml, weather)	
+	source = Nokogiri::XML(raw_xml)
+	location = source.xpath("//yweather:location")
+	condition = source.xpath("//item//yweather:condition")
+	forecast = source.xpath("//item//yweather:forecast")
+	weather[[location[0]['region'], location[0]['city']]] = [condition[0]['temp'], condition[0]['text'], forecast[0]['high'], forecast[0]['low']]
+end
+
+def display_result(weather)	
+	puts "State\tCity\tHigh\tLow\tCurrent Condition"
+	weather.sort.each do |k, v|
+	  print("#{k[0]}\t#{k[1]}\t#{v[2]}\t#{v[3]}\t#{v[0]}\t#{v[1]}\n")
+	end
+	high_city = weather.max_by{|k,v| v}
+	puts " \nThe city with the highest temperature:"
+<<<<<<< .mine
+	print("#{high_city[0][0]} \t #{high_city[0][1]} \t #{high_city[1][2]} 
+	      \t #{high_city[1][3]} \t #{high_city[1][0]}  \t #{high_city[1][1]}")
+	
+	
+=======
+	print("#{high_city[0][0]}\t#{high_city[0][1]}\t#{high_city[1][2]}\t#{high_city[1][3]}\t#{high_city[1][0]}\t#{high_city[1][1]}\n")
+>>>>>>> .r1361
+	low_city = weather.min_by{|k,v| v}
+	puts " \nThe city with the lowest temperature:"
+<<<<<<< .mine
+	print("#{low_city[0][0]} \t #{low_city[0][1]} \t #{low_city[1][2]} 
+	      \t #{low_city[1][3]} \t #{low_city[1][0]} \t #{low_city[1][1]} \t")
+	
+	
+=======
+	print("#{low_city[0][0]}\t#{low_city[0][1]}\t#{low_city[1][2]}\t#{low_city[1][3]}\t#{low_city[1][0]}\t#{low_city[1][1]}\n")	
+>>>>>>> .r1361
+end
+
+list = read_file
+simple_weather   = Hash.new
+nokogiri_weather = Hash.new
+puts "Simple XML"
+#simple_weather   = parse_xml(method(:simple_xml), list) 
+#display_result(simple_weather)
+time = Benchmark.realtime{display_result(parse_xml(method(:simple_xml), list))}
+print("Total time: #{time}\n")
+
+puts "\nNokogiri XML"
+#nokogiri_weather = parse_xml(method(:nokogiri_xml), list) 
+#display_result(nokogiri_weather)
+time = Benchmark.realtime{display_result(parse_xml(method(:nokogiri_xml), list))}
+print("Total time: #{time}\n")

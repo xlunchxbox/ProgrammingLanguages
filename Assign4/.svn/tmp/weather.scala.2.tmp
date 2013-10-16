@@ -1,0 +1,84 @@
+import scala.io.Source._
+import java.net.{URLConnection, URL}
+import scala.xml._
+import scala.actors.Futures._
+import scala.collection.mutable.{Map, SynchronizedMap, HashMap}
+import scala.collection.immutable.List
+ 
+def readFile(filename: String): String = {
+	scala.io.Source.fromFile(filename).mkString
+}
+
+def fetchXML(code: String): Elem = {
+	val url = new URL("http://weather.yahooapis.com/forecastrss?w="+code+"&u=f")
+	val con = url.openConnection
+	XML.load(con.getInputStream)
+} 
+
+def parseXML(xml: Elem): HashMap[String, String] = {
+	val data = new HashMap[String, String] 
+				with SynchronizedMap[String, String]
+	
+	data("region") = (xml \\ "@region").text
+	data("city")   = (xml \\ "@city").text
+	data("temp")   = (xml \\ "@temp").text 
+	data("cond")   = ((xml \\ "@text").head).text
+	data("high")   = ((xml \\ "@high").head).text
+	data("low")    = ((xml \\ "@high").head).text	
+	data
+}
+
+def formatLine(region: String, city: String, temp: String, cond: String, high: String, low: String): String = {
+	val lFormatted = "%-10s | ".format(region) +
+				"%-10s | ".format(city) +				
+				"%-10s | ".format(temp) + 
+				"%-16s | ".format(cond) + 
+				"%-10s | ".format(high) + 
+				"%-10s".format(low)
+	lFormatted
+}
+
+def parseFutures(futures: List[Option[Any]]): List[HashMap[String, String]] = {
+	futures.map[HashMap[String, String], List[HashMap[String, String]]](
+		ftr => ftr match {
+			case Some(value: HashMap[String, String]) => value
+    })
+}
+
+def getCity(data: HashMap[String, String]): String = {				
+	var city = formatLine(
+				data("region"), data("city"), data("temp"), 
+				data("cond"), data("high"), data("low"))
+	city
+}
+
+// def getMinAndMax(cities: List[Option[HashMap[String, String]]]): (Int, Int) = {
+	// val low = cities.map[Int, List[Int]](ftr => (ftr.get)("low").valueOf()).min
+	// val high = cities.map[Int, List[Int]](ftr => (ftr.get)("high").valueOf()).max
+	// (low, high)
+// }
+def getResultsMultithread(cities: Array[String]): List[Option[Any]] = {
+	val tasks = for ( i <- 0 to cities.length - 1 ) yield future {
+		parseXML(fetchXML(cities(i)))
+	} 
+	awaitAll(5000L, tasks: _*)
+}
+
+// def getResultsSingleThread(cities: Array[String]) = {
+	// cities.foreach{cities => println(getCity(cities))}
+// }
+
+val cities = readFile("cities.txt").split(',')
+
+println("\nSingle Thread")
+println(formatLine("REGION", "CITY", "TEMP", "CONDITION", "HIGH", "LOW"))
+getResultsSingleThread(cities)
+
+println("\nMultithread")
+println(formatLine("REGION", "CITY", "TEMP", "CONDITION", "HIGH", "LOW"))
+val results = getResultsMultithread(cities)
+
+val data = parseFutures(results)
+val list = data.map[String, List[String]](d => getCity(d))	
+(list.sorted).foreach{x=> println(x)}
+// println("Min: " + minmax.p1)

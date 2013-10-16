@@ -1,0 +1,40 @@
+Assign1: Due 11:59PM September 28
+
+Given the names (as example, write the functions so it can take any list of names):
+
+"Amar", "Ananta", "Camilo", "Christopher", "Cody", "Dylan", "Hieu", "Jesus", "Jose", "Joseph", "Josue", "Kayla", "Mary", "Michael", "Oscar", "Owais", "Ryan", "Suman", "Varun", "Venkat", "Wei"
+
+write a program to 
+
+1. Using mutability and imperative style, compute the average number of letters in the names.
+
+2. Using mutability and imperative style, compute the number of names starting  with each letter (don't include a letter if no name stars with it).
+
+3. Using full immutability and functional style, compute the average number of letters in the names.
+
+4. Using full immutability and functional style, compute the number of names starting with each letter (don't include a letter if no name stars with it).
+
+Keep the printing of the results separate from the code that does the actual work.
+
+Use two different languages (one for 1 and 2 and another for 3 and 4).
+Start small, one problem at a time, and ask for frequent reviews.
+
+Include a run command (.sh file or a .cmd file) that will compile (if necessary) and run the code samples. Keep the code in separate files with appropriate language extensions.
+
+Pairing response: OK for both
+
+Total [100]: 95
+Output consistent for the parts [10]:
+Part 1: Concise as much as the language permits [10]:
+Part 2: Concise as much as the language permits [10]:
+Part 3/4: Used a language that promotes immutability [20]:
+Part 3: Concise and efficient [20]:
+Part 4: Concise and efficient [20]:
+Overall quality [10]: -5
+Avoid single letter variables. Keep println outside the looping (that's a side effect).
+
+Score for (please see 
+<http://groups.google.com/group/uhcsf12pl/msg/f512ca0cd3ffc8c3>):
+
+Cruz : 95
+Rodriguez : 95

@@ -1,0 +1,42 @@
+Homework 1: Due 11:59PM September 14th
+
+You can check in your solution as many times as you like.
+Only the last checkin you make will be graded.
+Please feel free to ask for frequent reviews (see the readme.txt file
+in the reviews folder for details on how to ask for reviews).
+
+What are the differences between statements and expressions. Given examples. What are the benefits and the consequences of using each one of them. 
+
+Feel free to read up, but do provide references to where you learn from. The description should be in your own words. If you find some really catchy phrases or quotes you'd like to use, do so, but put them in double quotes along with the name of who said (wrote) it.
+
+Share your own experiences, observations, things that may have intrigued you.
+
+Your answer goes here:
+
+The differences between Statements and Expressions are:
+
+- Statements dictate an instruction purely for the side-effect, while expressions are expected to return a result.
+- There are no statements in purely Functional languages (everything is considered an expression)
+- Statements can be formed from contained expressions (e.g. adding a semi-colon ";" at the end of an expression to discard the return value)
+
+The benefits of using Statements:
+
+- Statements are important because they allow declaration of variables and control flow.
+- "Assert" statements are useful for guaranteeing proper code execution and to ease the process of optimization.
+The benefits of using Expressions:
+- Expressions are essential to evaluating input and producing corresponding output.
+- Expressions often have no side-effects, guaranteeing an immutable environment.
+- Expressions can be used as statements, simply discarding whatever they return.
+
+- A consequence of expressions can be if it has a side-effect. It will require a more in depth knowledge of the program at hand and how the expression(s) are being used. It can make it harder to follow and harder to debug and fix the error(s).
+
+- A consequence of statements can be performance. Although assert statements can guarantee proper code execution they can slow down the execution of the program.
+
+
+Sources:
+http://www.haskell.org/haskellwiki/Functional_programming
+http://docs.oracle.com/javase/tutorial/java/nutsandbolts/expressions.html
+http://www.pgbovine.net/programming-with-asserts.htm
+http://en.wikipedia.org/wiki/Expression_(computer_science)
+http://en.wikipedia.org/wiki/Statement_(computer_science)
+http://en.wikipedia.org/wiki/Side_effect_(computer_science)

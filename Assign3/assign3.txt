@@ -1,0 +1,36 @@
+Assign3: Due 11:59PM November 9th
+
+Suppose a company has offices in several locations and is keen on monitoring 
+the weather at those locations. They're asked us to create an application that
+displays the high, low, current temperature, and condition (showers, hail, etc.) for each location. 
+
+The information needs to be displayed in the following format:
+
+State     City      High      Low     Current Condition
+
+The rows are sorted based on the state and for each state, they are sorted on 
+the city name.
+
+They also want to see the name of the city with the highest temperature among 
+the cities and the city with the lowest temperature.
+
+We can fetch the temperature information from Yahoo service at URL:
+http://weather.yahooapis.com/forecastrss?w=WOEID&u=f
+
+where WOEID is a number like 2391102.
+
+We can find the woeid of a city by visiting http://weather.yahoo.com using a 
+browser and entering a city name. We can also find some information about the
+response format at <http://developer.yahoo.com/weather>.
+
+The program should read a bunch of WOEIDs from a file (create a sample file 
+with at least 25 WOEIDs) and display information for those cities represented 
+by the given WOEIDs.
+
+Write two versions of the program (reuse as much code between the versions as possible). The first version simply reads the file, goes out to Yahoo for one WOEID at a time, and gathers data, processes the information, and displays. Make the second version much faster than the first version.
+
+When we run the program, it should report the time (in seconds) it took to 
+run, for each version. Don't include the print time in the time calculation.
+
+Use an OO language of your choice from Java/C#/C++/Ruby to implement this application.
+

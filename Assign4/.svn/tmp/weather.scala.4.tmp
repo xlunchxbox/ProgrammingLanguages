@@ -1,0 +1,94 @@
+import scala.io.Source._
+import scala.xml._
+import scala.actors.Futures._
+import scala.collection.immutable._
+
+def readFile(filename: String): 
+String = scala.io.Source.fromFile(filename).mkString
+
+<<<<<<< .mine
+def fetchXML(code: String): Elem = 
+	XML.load("http://weather.yahooapis.com/forecastrss?w="+code+"&u=f")
+
+def parseXML(xml: Elem): Map[String, List[String]] = 
+	Map((xml \\ "@region").text + " \t " + (xml \\ "@city").text -> 
+=======
+def parseXML(xml: Elem): (String, List[String]) = 
+	((xml \\ "@region").text + " \t " + (xml \\ "@city").text,
+>>>>>>> .r2017
+		List((xml \\ "@temp").text, ((xml \\ "@text").head).text, 
+		((xml \\ "@high").head).text, ((xml \\ "@low").head).text))
+
+<<<<<<< .mine
+def getResultsSingleThread(cities: List[String]) = 
+	for(i <- 0 to cities.length - 1) yield parseXML(fetchXML(cities(i)))
+=======
+def max(a: (String, List[String]), b: (String, List[String])) = if(a._2(0).toInt > b._2(0).toInt) a else b
+>>>>>>> .r2017
+
+def min(a: (String, List[String]), b: (String, List[String])) = if(a._2(0).toInt < b._2(0).toInt) a else b
+
+def getResult(result: (Map[String, List[String]], (String, List[String]), (String, List[String])), i: Int) = {
+	val ith_city = parseXML(fetchXML(cities(i)))
+	(result._1 ++ Map(ith_city._1->ith_city._2), max(ith_city, result._2), min(ith_city, result._3))
+}
+
+def singleThread(cities: List[String]) = {
+	val first_city = parseXML(fetchXML(cities(0)))
+	(1 to cities.length-1).foldLeft((Map(first_city._1->first_city._2), first_city, first_city))((result, i) => getResult(result, i))
+}
+
+def getResultsMultithread(cities: List[String]) = {
+	val tasks = for (i <- 0 to cities.length - 1) yield future {
+		val ith_city = parseXML(fetchXML(cities(i)))
+		Map(ith_city._1 -> ith_city._2)
+	} 
+	awaitAll(5000L, tasks: _*)
+}
+
+<<<<<<< .mine
+def singleThread(cities: List[String]) = 
+	getResultsSingleThread(cities).reduceLeft(_++_)
+=======
+def multiThread(cities: List[String]) = {
+	val weathers = (getResultsMultithread(cities) flatten).asInstanceOf[List[Map[String, List[String]]]].reduceLeft(_++_)
+	(weathers, weathers.maxBy(_._2(0).toInt), weathers.minBy(_._2(0).toInt))
+}
+>>>>>>> .r2017
+
+<<<<<<< .mine
+def multiThread(cities: List[String]) = 
+	(getResultsMultithread(cities) flatten).asInstanceOf[List[Map[String, List[String]]]].reduceLeft(_++_)
+
+def getMax(weathers: Map[String, List[String]]) = 
+	weathers.maxBy(_._2(0).toInt)
+
+def getMin(weathers: Map[String, List[String]]) = 
+	weathers.minBy(_._2(0).toInt)
+
+=======
+>>>>>>> .r2017
+def output(weathers: Map[String, List[String]], max: (String, List[String]), min: (String, List[String])) = {
+	println("State \t City \t\t High \t Low \t Current Condition")
+	weathers.foreach{ case (k,v) => println(k + " \t " + v(2) + " \t " + v(3) + " \t " + v(0) + " \t " + v(1)) }
+	println("The city with the highest temperature:")
+	println(max._1 + " \t " + max._2(2) + " \t " + max._2(3) + " \t " + max._2(0) + " \t " + max._2(1))
+	println("The city with the lowest temperature:")
+	println(min._1 + " \t " + min._2(2) + " \t " + min._2(3) + " \t " + min._2(0) + " \t " + min._2(1))
+}
+
+def timeIt(function:  List[String] => (Map[String, List[String]], (String, List[String]), (String, List[String])), cities:  List[String]) = {
+	val startTime = System.nanoTime
+	val result = function(cities)
+	val sortMap = TreeMap(result._1.toSeq:_*)
+	val endTime = System.nanoTime
+	val executionTime = (endTime - startTime)/1e9
+	println("Total time is " + executionTime + "s")
+	output(sortMap, result._2, result._3)
+}
+
+val cities = readFile("cities.txt").split(",").toList
+println("\nSingle Thread")
+timeIt(singleThread, cities)
+println("\nMultithread")
+timeIt(multiThread, cities)

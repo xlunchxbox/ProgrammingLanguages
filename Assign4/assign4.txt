@@ -1,0 +1,6 @@
+Assign4: Due 11:59PM December 10th
+
+Implement the application in Assignment 3 using a pure or hybrid functional 
+programming language (for example Scala, Clojure, F#,...). Avoid explicit
+locking but ensure proper concurrency.
+

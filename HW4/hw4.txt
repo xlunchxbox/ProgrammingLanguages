@@ -1,0 +1,85 @@
+Homework 4: Due 11:59PM December 14
+
+**There will no reviews for this Homework**
+
+Feel free to give answers collectively, and also if you want to, you can call 
+out something specific to yourself different from your pair.
+
+(a) What languages did you use in this course? 
+
+Wei Cao: Java/Ruby/Python/Scala/Clojure
+Chris Cruz: Ruby/Scala/Clojure/
+Camilo Rodriguez: Scala, Ruby, Python
+(b) Which one of those you used for the first time?
+
+Wei Cao: Ruby/Python/Scala/Clojure
+Chris Cruz: Ruby/Scala/Clojure
+Camilo Rodriguez: Scala, Python
+
+(c) What are your impressions about all the languages that you used (compare
+and contrast in your view)?
+
+Wei Cao: 
+I only used Java once for assignment 1. 
+Writing Java code is much more complicated than other four languages, I have to write lots of codes that not necessary.
+
+Ruby/Python are very easy to use. Their syntax are simple, but very powerful. I can easily write compact and powerful code. 
+I like Python more than Ruby, because I found there are more documentations for Python over Ruby. The development tools of Python is easier as well. 
+For Python, I just need to download it from the offical site, and use the bulit-in IDE.
+For Ruby, I have to do much more things: select the right package(several out there) to install; use Notepad++ to write code; use command line to run it.
+That's why I've been using Python for all projects of another class.
+In my opinion, both of them are easier to use than Scala and Clojure. 
+
+Scala is an interesting and powerful language. It can be used for functional style programming. It can also be used for OO programming. 
+It's more flexible and easier when compared to Clojure because it supports both imutable and mutable data, which helps a lot.
+I learned C programming 10 years ago. And I've been using several languages(C/C++/Java/PHP/Javascript) since then.
+I never intentionally keep data immutable or mutable. So it's really diffcult for me to keep everything immutable.
+The problem of Scala is that it's so powerful but without enough examples, without enough detailed documentation.
+
+I only used Clojure once for quiz. It's powerful, pure functional, and thus no side effects. But I don't like it. 
+I am not familiar with its style, and I don't like the way it treats all data imutable(though it's neccessary for pure function).
+
+Chris Cruz:
+
+Ruby seems like a very powerful language to me, I really love the elegance of it. The syntax to me is friendlier than the other languages covered in this course. I really enjoyed all the built in libraries and how elegantly you could accomplish most tasks with. I think one of my favorite things that I learned in this course in ruby is to iterate over the elements instead of using for loops and indexes. Also out of all the languages we covered, for me, ruby seemed the easiest to integrate with textmate. Using that editor combined with ruby made me very productive. 
+
+Scala/Clojure
+I only used Clojure once for one of the quizzes, but I felt it was a really difficult language and the documentation to go along with it online didn't make it any easier. Scala is very interesting and very powerful. I like how multiple lines in java can really be condensed to only the essentials needed in scala and it makes for easier to read and cleaner code. I like the idea of immutable variables, and I can see why it is good to use them, but being used to Java/C++/C I did find it difficult breaking old habits when using scala. That said, I did enjoy how the language made me approach problems differently and think outside the box. 
+
+Camilo Rodriguez
+I was already familiar with Ruby and Python, so I concentrated more on using Scala to learn it.
+
+It was a bit difficult to understand Scala at first because of the lack of documentation and the use of very cryptic operators such as "::." _+_, etc. After getting through the difficult part, I really enjoyed Scala. It seems to be a language with a lot of potential due to the fact that it bridges both OOP and functional paradigms so smoothly.
+
+
+(d) What did you learn mostly in this course (I'm interested in hearing
+your views, things you realized, things you found interesting, things
+you did not like so much about any particular language, etc.)?
+
+Wei Cao:
+I like:
+Functional language/style programming:
+I didn't know it before. Although I'm not good at functional style programming(I spent a lot of time writing such a simple program of assignment4 to find the max and min when data arrives), and I'm not familiar with many functinal languages. I appreciate it now. It's interesting and without any side effects. In addition, isn't it cool to pass function as a parameter to another function?
+
+Under the hood of OO:
+In computer science, the term polymorphism has several different but related meanings; one of these, known as parametric polymorphism in type system theory and functional programming languages, is known as generic programming in the Object Oriented Programming Community and is supported by many languages including C++, C# and Java. I studied and used a lot of OO design pattens, but never know what happens under the hood. I mean, I use it, but never tried to understand why I can do it. Why I can't do it in other languages such as C.
+
+Javascript:
+I have used jQuery build very complicated web ui interactions, but I only wrote javascript functions before. Thanks to this class, I got an overall knowledge of OO and prototype programming of javascript.
+
+Never stop optimizing your code/never stop studying:
+Maybe the code looks good, but it might be able to be optimizied. Actually I always found that my code was crap when I reviewed it months later...
+
+I don't like:
+Clojure: The biggest problem of it is lack of documentation. It's pretty new at least to me. I've been used to imperative style programming. It's difficult to learn such a new different programming style without enough documentation. Even the configuration process of Clojure environment made me crazy at the very beginning.
+
+
+
+Chris Cruz:
+My favorite part of this class was being taken out of my comfort zone with the languages I always use (C, C++, Java). I really learned quite a bit, and really enjoyed the reviews (though frustrating at times, haha). I know what I need to work on now, need to lose some bad habits, and really focus on clean code with good readability. I learned that there really is no need to comment so heavily as I have been taught in the past if my code is actually good and easy to follow. My favorite language by far was ruby, and I really plan to learn more about it so I can become a pro. My least favorite, and not because of the difficulty, were the functional languages. I struggled with them and at times it was really difficult to find out where I was going wrong, there was a real lack of good examples and documentation on the internet. 
+
+Camilo Rodriguez
+I learned to appreciate different forms of programming such as functional. It was also very useful to learn how different languages deal with the same problems in different ways.
+
+The most important thing I learned is probably the fact that actually producing a solution is just a small part of programming. Code structure and proper use of the strengths and standards of each language i extremelly important, and something that I might have overlooked in the past.
+

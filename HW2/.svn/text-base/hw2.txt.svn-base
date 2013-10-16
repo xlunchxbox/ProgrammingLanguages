@@ -1,0 +1,43 @@
+Homework 2: Due 11:59PM October 26th
+1. What's memoization? 
+
+Memoization is an optimization technique used primarily to speed up computer programs by having function calls avoid repeating the calculation of results for previously processed inputs. The idea of it is to keep a separate table of solutions to subproblems, modify recursive calls to first look up in the table, and then, if the subproblem has been computed, use the saved result, otherwise, compute it and save the result in the table.
+So, a memoized function "remembers" the results corresponding to some set of specific inputs. Subsequent calls with remembered inputs return the remembered result rather than recalculating it, thus eliminating the primary cost of a call with given parameters from all but the first call made to the function with those parameters.
+
+2. What is the benefit of using it? 
+
+Memoization is very useful when there are repeated subproblems, and they are pure functions. Because it avoids repeating the calculation of results for previously processed inputs, it significantly decreases the complexity of computations of those functions, and thus it offers significant performance benefits over unmemoizated functions. 
+For example, we can use memoization to optimize the following fibnocci function:
+fib(n)
+	case 0|1 1
+	fib(n-2) + fib(n-1)
+and make the complexity of the algorithm go from O(1.6^n) to O(n). The bigger the n is, the more time it saves.
+
+3. What are the disadvantages of using it?
+
+It doesn't work for functions with side effects. Blindly applying memorize to every slow function will not work, and will cause program to fail without warnings.
+The mechanism for table filling and lookup has an interpretive overhead, and no general strategy for table management is efficient for all problems.
+Another disadvantage is due to the increase in speed. With the increase in speed more calculations have to be stored to not be calculated again. This increases the memory usage. The downside to the memory usage is if it runs out of memory then the program will crash. For example a heavy calculation like calculating the last digit of pi, it is a repetitive calculation and if there is not enough memory eventually it will fail. 
+
+4. In any language you prefer, write a very simple straight recursive (not tail) function to compute the fibonacci number (fib(n) = fib(n - 1) + fib(n - 2)). This function return a number, not a series. Then implement it using memoization. Run the two and discuss the difference you see in execution speed.
+
+Put the code in a separate file.
+
+The memorized function runs much faster than the original function:
+Position: 35 Result: 9227465 Time: 5.7594230097s     <- Original
+Position: 35 Result: 9227465 Time: 0.0000977453s     <- Memoized
+
+Because the original function calculates fib(position-?) again even if it's just calculated in the last recursion.
+However, the memorized function stores fib(position-?) in a table, and reuses it in the next recursion.
+
+Total [10]: 10
+1. Details on memoization [2]:
+2. Benefits beyond stating the obvious speed gain [2]:
+
+3. 
+May run into out of memory exception for large input size [1]
+Need to emphasis functional purity for input - output match [1]
+
+4.
+Solution uses memoization [1] 
+Significant difference in speed of memorized solution [2]

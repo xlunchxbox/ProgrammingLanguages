@@ -1,0 +1,39 @@
+Homework 3: Due 11:59PM November 21st
+
+How is JavaScript similar to some of the other languages we've discussed in this course. Mention their names and discuss the similarities.
+
+JavaScript is an object-oriented programming language that has OOP elements such as: 
+
+- Classes, which are really functions as discussed in the next answer
+- Inheritance, since all objects inherit properties from their prototypes 
+- Polymorphism, which it does through superclasses and subclasses instead of interfaces.
+
+JavaScript also has some functional elements such as treating everything as an expression. It also has anonymous and higher-order functions; functions can take and return other functions.
+
+JavaScript also uses closures and lexical scoping[1], just like functional languages such as Scala.  
+
+JavaScript supports imperative programming styles. It supports much of the structured programming syntax from C, such as "if", "while" and "switch". Moreover, it makes a distinction between expressions and statements as C.
+
+Just like in languages like Ruby and Groovy, type-checking in JavaScript occurs at runtime (dynamically-typed). 
+
+Among the languages you mentioned above, what differences does JavaScript have from them?
+
+One big difference of JavaScript compared to other languages is based around the concept of prototypes. In JavaScript, every object has a prototypes. Objects inherit every property from their prototype, while many other object-oriented languages are their own type by default. 
+
+Having a prototype allows any object to fall back to their prototype if they do not find the wanted property within their scope. Unlike inheritance in languages such as C++, C# and Java, prototypical inheritance does not need a reference during the object definition, but it needs a reference when looking for a property not found locally.
+
+JavaScript is object-oriented, but it does not have classes. The truth is that in JavaScript, functions can be used as classes, and they can have function definitions within the functions themselves (nested functions). Functions also work as object constructors, which are the ones that determine the newly-created object's internal prototype. 
+
+Another unique element in JavaScript is the concept of implied parameters. When defining parameters in a function, an implied list of arguments exists by default. This list allows functions to have a dynamic number of input variables, which are accessed by using the indexes of the parameter list. 
+
+One drawback of having this parameter list is that overloading is no longer possible by simply having different functions of the same name with different parameters. It still can be achieved by either checking which is the last argument or checking the length of the parameter list. 
+
+A major difference Javascript has from other languages like C++, and Java are that in JavaScript variable types do not necessarily have to be defined. In languages like C++, and Java, the type has to be known before compile time since they are strongly typed languages. For javascript, it is determined at runtime since it is a dynamic language. This is good and bad. It is good since you don't have to determine the variable type until runtime so it allows more flexibility, but it is dangerous since not determining the type can lead to javascript making it a global variable and allowing access to it outside of the function. [2]
+
+JavaScript it is a scripting language, and depends on a run-time environment (usually internet browsers). It does not have the same explicit compile-and-link procedure that other languages have.
+
+
+References
+[1] Javascript Closures - http://jibbering.com/faq/notes/closures/, by Richard Cornford
+[2] Javascript Videos by Venkat
+

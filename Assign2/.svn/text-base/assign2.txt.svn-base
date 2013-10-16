@@ -1,0 +1,69 @@
+Assign2: Due 11:59PM October 12
+
+The Fibonacci series starts with two 1s and a value in the series is computed by adding the previous two values in the series. The series goes:
+1, 1, 2, 3, 5, 8, 13, 21, ...
+
+Implement functions that will take a position in the series and return the value at that position in the series, using:
+
+1. a iterative procedure that runs as an iterative process.
+
+2. a recursive procedure that runs as a recursive process.
+
+3. a recursive procedure that runs as an iterative process.
+
+4. create a different version of the function in 3, with better performance for large input values.
+
+Honor full immutability in functions in problems 2 to 4.
+
+In addition to printing the values returned by each function call, print the time (in seconds) taken to run each of the function as well.
+
+
+
+
+
+
+
+
+
+
+Source for faster method:
+//http://stackoverflow.com/questions/7388416/what-is-the-fastest-way-to-write-fibonacci-function-in-scala/7388895#7388895
+
+The binary exponentiation version is the fastest execution we could find.
+With an n of 70000 it beat every method (didn't test recursive recursive at n = 70000 since it would never have ended)
+
+Timings n = 70000
+Iterative Iterative Time: 440ms
+TailRecursion Time: 252ms
+Binary Exp: Time: 56ms
+
+So it is a much faster way of calculating fibonacci using recursion.
+
+We left the code with position = 40 so all four methods could be run at once, for it to run at position = 70000 then the Recursive Recursive way must be commented out. At position = 40 you can't really see the major difference in timings(not counting recursive recursive). 
+
+Timings n = 40
+Position: 40 Value: 102334155 Time: 1ms
+Position: 40 Value: 102334155 Time: 1102ms
+Position: 40 Value: 102334155 Time: 0ms
+Position: 40 Value: 102334155 Time: 1ms
+
+Total [100]: 64
+Correct sequence is produced [10]: -10 
+need to start with 1, not zero.
+Also, time(0)(callTailFib) is running for a long time...
+
+Iterative-Iterative [10]:
+Recursive-Recursive [10]:
+Tail recursive [10]:
+Tail recursive does not blow the stack [20]:
+Performance enhancement addressed [10]:
+Improved performance solution is tail call optimized [20]: -20
+Why is fibopt not marked with @tailrec ?
+
+Code and output are concise [10]: -6
+fibIterativeIterative too verbose.
+Unnecessary complexity with multiple parameter list, call to time can be less smelly.
+Output not concise for large position values.
+
+Cruz: 64
+Rodriguez: 64
